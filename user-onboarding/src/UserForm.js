@@ -18,6 +18,9 @@ const UserForm = ({ touched, errors, status}) =>{
             <label className='formLabel'>
                 Name:
                 <Field className='formLabel' type='text' name='name' placeholder='Name' />
+                {touched.name && errors.name && (
+            <p classname="errors">{errors.name} </p>
+          )}
             </label>
             <label className='formLabel'>
                 Email:
@@ -51,6 +54,33 @@ export default withFormik({
         password: '',
         TOScheck: false
     }),
+    validationSchema: yup.object().shape({
+        name: yup
+        .string()
+        .required('You need to have a name'),
+        email: yup
+        .string()
+        .email()
+        .required('Email needed'),
+        password: yup
+        .string()
+        .required('password needed'),
+        TOScheck: yup
+        .boolean()
+        .required('you need to sign your life away')
+
+    }),
+    handleSubmit: (values, { resetForm, setStatus }) => {
+        
+        axios
+          .post("https://reqres.in/api/users", values)
+          .then(response => {
+            console.log("axios-post", response);
+            setStatus(response.data);
+            resetForm();
+          })
+          .catch(err => console.log("error:", err.response));
+      }
 
 
 })(UserForm);
