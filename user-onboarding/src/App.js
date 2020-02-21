@@ -1,21 +1,14 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+import UserForm from './UserForm'
 
 function App() {
   return (
     <div className="App">
       <header className="App-header">
-       
-        <p>
-          
-        </p>
-        <a
-          
-        >
-          Learn React
-        </a>
+      
       </header>
+      <UserForm />
     </div>
   );
 }
